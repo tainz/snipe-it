@@ -379,6 +379,12 @@ Set-EnvValue $envPath 'DB_PASSWORD' "'$DbPassword'"
 $testEnvPath = Join-Path $ProjectRoot '.env.testing'
 if (-not (Test-Path $testEnvPath)) {
     Copy-Item (Join-Path $ProjectRoot '.env.testing-ci') $testEnvPath
+
+    # The importer lowers the process memory limit to 500M at runtime
+    # (config/importer.php), which is not enough to render some views under
+    # test on Windows - php.ini's own limit cannot override an ini_set().
+    Add-Content -Path $testEnvPath -Value @('', 'IMPORT_MEMORY_LIMIT=2G', 'LDAP_MEM_LIM=2G')
+
     Write-Host '    Created .env.testing (SQLite) so the test suite needs no MariaDB'
 }
 

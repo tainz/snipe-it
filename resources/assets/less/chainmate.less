@@ -427,6 +427,33 @@ img.navbar-brand-img,
   border-radius: @cm-radius-sm;
 }
 
+// The dashboard's "New Asset / New License / ..." row uses AdminLTE's rainbow
+// .bg-* helpers (teal, maroon, purple, yellow...). Flatten them into one
+// outline treatment that fills with brand orange on hover, the way the app's
+// secondary actions behave. Scoped to .btn so status labels keep their colors.
+.btn.bg-teal,
+.btn.bg-maroon,
+.btn.bg-orange,
+.btn.bg-purple,
+.btn.bg-yellow,
+.btn.bg-light-blue,
+.btn.bg-aqua,
+.btn.bg-green,
+.btn.bg-red,
+.btn.bg-navy,
+.btn.bg-olive {
+  background-color: var(--box-bg) !important;
+  border: 1px solid var(--input-border-color) !important;
+  color: var(--color-fg) !important;
+
+  &:hover,
+  &:focus {
+    background-color: var(--main-theme-color) !important;
+    border-color: var(--main-theme-color) !important;
+    color: #FFFFFF !important;
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Forms
 // ---------------------------------------------------------------------------
