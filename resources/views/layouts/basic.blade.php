@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ ($snipeSettings) && ($snipeSettings->site_name) ? $snipeSettings->site_name : 'Snipe-IT' }}</title>
+    <title>{{ ($snipeSettings) && ($snipeSettings->site_name) ? $snipeSettings->site_name : config('app.name') }}</title>
 
     <link rel="shortcut icon" type="image/ico" href="{{ ($snipeSettings) && ($snipeSettings->favicon!='') ?  Storage::disk('public')->url(e($snipeSettings->favicon)) : config('app.url').'/favicon.ico' }}">
 
@@ -25,20 +25,6 @@
         };
     </script>
 
-
-    @if (($snipeSettings) && ($snipeSettings->header_color))
-        <style>
-        .main-header .navbar, .main-header .logo {
-        background-color: {{ $snipeSettings->header_color }};
-        background: -webkit-linear-gradient(top,  {{ $snipeSettings->header_color }} 0%,{{ $snipeSettings->header_color }} 100%);
-        background: linear-gradient(to bottom, {{ $snipeSettings->header_color }} 0%,{{ $snipeSettings->header_color }} 100%);
-        border-color: {{ $snipeSettings->header_color }};
-        }
-        .skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a {
-        border-left-color: {{ $snipeSettings->header_color }};
-        }
-        </style>
-    @endif
 
     @if (($snipeSettings) && ($snipeSettings->custom_css))
         <style>
@@ -72,7 +58,7 @@
                 @if (($snipeSettings) && ($snipeSettings->logo!=''))
                     <img id="login-logo" src="{{ Storage::disk('public')->url('').e($snipeSettings->logo) }}" alt="{{ $snipeSettings->site_name }}">
                 @else
-                    <span class="basic-page-header__site-name">{{ $snipeSettings->site_name ?? 'Snipe-IT' }}</span>
+                    <span class="basic-page-header__site-name">{{ $snipeSettings->site_name ?? config('app.name') }}</span>
                 @endif
             </a>
         @else
@@ -80,7 +66,7 @@
                 @if (($snipeSettings) && ($snipeSettings->logo!=''))
                     <img id="login-logo" src="{{ Storage::disk('public')->url('').e($snipeSettings->logo) }}" alt="{{ $snipeSettings->site_name }}">
                 @else
-                    <span class="basic-page-header__site-name">{{ $snipeSettings->site_name ?? 'Snipe-IT' }}</span>
+                    <span class="basic-page-header__site-name">{{ $snipeSettings->site_name ?? config('app.name') }}</span>
                 @endif
             </span>
         @endauth

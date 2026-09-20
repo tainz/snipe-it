@@ -44,7 +44,7 @@ class MailTest extends Notification implements ShouldQueue
             ->markdown('notifications.Test')
             ->withSymfonyMessage(function (Email $message) {
                 $message->getHeaders()->addTextHeader(
-                    'X-System-Sender', 'Snipe-IT'
+                    'X-System-Sender', config('app.name')
                 );
             });
     }

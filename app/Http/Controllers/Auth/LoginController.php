@@ -395,10 +395,11 @@ class LoginController extends Controller
             $barcode->getBarcodeObj(
                 'QRCODE',
                 sprintf(
-                    'otpauth://totp/%s:%s?secret=%s&issuer=Snipe-IT&period=30',
+                    'otpauth://totp/%s:%s?secret=%s&issuer=%s&period=30',
                     urlencode($settings->site_name),
                     urlencode($user->username),
-                    urlencode($secret)
+                    urlencode($secret),
+                    urlencode($settings->site_name)
                 ),
                 300,
                 300,

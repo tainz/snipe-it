@@ -52,7 +52,7 @@ class CurrentInventory extends Notification implements ShouldQueue
             ->subject(trans('mail.inventory_report'))
             ->withSymfonyMessage(function (Email $message) {
                 $message->getHeaders()->addTextHeader(
-                    'X-System-Sender', 'Snipe-IT'
+                    'X-System-Sender', config('app.name')
                 );
             });
 

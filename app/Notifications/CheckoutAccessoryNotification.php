@@ -219,7 +219,7 @@ class CheckoutAccessoryNotification extends Notification implements ShouldQueue
             ->subject(trans('mail.Confirm_accessory_delivery'))
             ->withSymfonyMessage(function (Email $message) {
                 $message->getHeaders()->addTextHeader(
-                    'X-System-Sender', 'Snipe-IT'
+                    'X-System-Sender', config('app.name')
                 );
             });
     }

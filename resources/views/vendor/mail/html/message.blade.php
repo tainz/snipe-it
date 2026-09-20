@@ -70,7 +70,7 @@
 @if($snipeSettings::setupCompleted())
 © {{ date('Y') }} {{ $snipeSettings->site_name }}. {{ trans('mail.rights_reserved') }}
 @else
-© {{ date('Y') }} Snipe-IT. {{ trans('mail.rights_reserved') }}
+© {{ date('Y') }} {{ config('app.name') }}. {{ trans('mail.rights_reserved') }}
 @endif
 
 @if ($snipeSettings->privacy_policy_link!='')

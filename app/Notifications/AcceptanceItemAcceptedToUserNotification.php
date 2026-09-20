@@ -104,7 +104,7 @@ class AcceptanceItemAcceptedToUserNotification extends Notification implements S
             ->subject('✅ ' . trans_choice('mail.acceptance_asset_accepted_to_user', $this->qty, ['qty' => $this->qty, 'site_name' => Setting::getSettings()->site_name]))
             ->withSymfonyMessage(function (Email $message) {
                 $message->getHeaders()->addTextHeader(
-                    'X-System-Sender', 'Snipe-IT'
+                    'X-System-Sender', config('app.name')
                 );
             });
 

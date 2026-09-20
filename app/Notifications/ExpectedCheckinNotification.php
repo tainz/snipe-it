@@ -63,7 +63,7 @@ class ExpectedCheckinNotification extends Notification implements ShouldQueue
             ->subject('⏰'.$subjectText)
             ->withSymfonyMessage(function (Email $message) {
                 $message->getHeaders()->addTextHeader(
-                    'X-System-Sender', 'Snipe-IT'
+                    'X-System-Sender', config('app.name')
                 );
             });
 

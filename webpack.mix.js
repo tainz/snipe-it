@@ -20,6 +20,7 @@ mix
   .less("./node_modules/admin-lte/build/less/AdminLTE.less", "css/build")
   .less("./resources/assets/less/app.less", "css/build")
   .less("./resources/assets/less/overrides.less", "css/build")
+  .less("./resources/assets/less/chainmate.less", "css/build")
   .styles(
     [
 
@@ -35,6 +36,7 @@ mix
       "./public/css/build/app.css",
       "./node_modules/select2/dist/css/select2.css",
       "./public/css/build/overrides.css",
+      "./public/css/build/chainmate.css",
     ],
     "./public/css/dist/all.css"
   )

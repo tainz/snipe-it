@@ -51,7 +51,7 @@ class ExpiringAssetsNotification extends Notification implements ShouldQueue
             ->subject('⏰'.trans('mail.Expiring_Assets_Report'))
             ->withSymfonyMessage(function (Email $message) {
                 $message->getHeaders()->addTextHeader(
-                    'X-System-Sender', 'Snipe-IT'
+                    'X-System-Sender', config('app.name')
                 );
             });
 

@@ -51,7 +51,7 @@ class InventoryAlert extends Notification implements ShouldQueue
             ->subject('⚠️ '.trans('mail.Low_Inventory_Report'))
             ->withSymfonyMessage(function (Email $message) {
                 $message->getHeaders()->addTextHeader(
-                    'X-System-Sender', 'Snipe-IT'
+                    'X-System-Sender', config('app.name')
                 );
             });
 

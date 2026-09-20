@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" role="img" aria-label="ChainMate">
+  <rect width="192" height="192" rx="36" fill="#FF5F00"/>
+  <g fill="none" stroke-linecap="round">
+    <circle cx="72" cy="78" r="27" stroke="#FFFFFF" stroke-width="15"/>
+    <circle cx="117" cy="117" r="31" stroke="#FF5F00" stroke-width="27"/>
+    <circle cx="117" cy="117" r="31" stroke="#FFFFFF" stroke-width="15"/>
+    <path d="M 92.6 89.6 A 27 27 0 0 1 81 103.4" stroke="#FF5F00" stroke-width="27"/>
+    <path d="M 95.2 86.2 A 27 27 0 0 1 84 101.9" stroke="#FFFFFF" stroke-width="15"/>
+  </g>
+</svg>

@@ -156,7 +156,7 @@ class RequestAssetCancelation extends Notification implements ShouldQueue
             ->subject('⚠️ '.trans('general.request_canceled'))
             ->withSymfonyMessage(function (Email $message) {
                 $message->getHeaders()->addTextHeader(
-                    'X-System-Sender', 'Snipe-IT'
+                    'X-System-Sender', config('app.name')
                 );
             });
 

@@ -25,7 +25,7 @@
         <label for="site_name">
           {{ trans('general.site_name') }}
         </label>
-        <input class="form-control" placeholder="Snipe-IT Asset Management" required="" name="site_name" type="text" value="{{ old('site_name') }}">
+        <input class="form-control" placeholder="{{ config('app.name') }}" required="" name="site_name" type="text" value="{{ old('site_name') }}">
 
         <x-form.error name="site_name" />
       </div>

@@ -98,7 +98,7 @@ $style = [
                                     {{ $snipeSettings->site_name }}
                                 @endif
                             @else
-                                Snipe-IT
+                                {{ config('app.name') }}
                             @endif
                         </td>
                     </tr>

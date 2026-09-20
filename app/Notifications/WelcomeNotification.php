@@ -65,7 +65,7 @@ class WelcomeNotification extends Notification implements ShouldQueue
                 ])
             ->withSymfonyMessage(function (Email $message) {
                 $message->getHeaders()->addTextHeader(
-                    'X-System-Sender', 'Snipe-IT'
+                    'X-System-Sender', config('app.name')
                 );
             });
     }

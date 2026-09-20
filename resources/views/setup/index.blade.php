@@ -53,7 +53,7 @@ Create a User ::
         @if ($start_settings['url_valid'])
           That URL looks right! Good job!
         @else
-          Uh oh! Snipe-IT thinks your URL is {{ $start_settings['url_config'] }}, but your real URL is {{ $start_settings['real_url'] }}
+          Uh oh! {{ config('app.name') }} thinks your URL is {{ $start_settings['url_config'] }}, but your real URL is {{ $start_settings['real_url'] }}
           Please update your <code>APP_URL</code> settings in your  <code>.env</code> file
         @endif
       </td>
@@ -108,7 +108,7 @@ Create a User ::
         @if ($start_settings['prod'])
           Your app is set to production mode. Rock on!
         @else
-          Your app is set <code>{{ $start_settings['env'] }}</code> instead of <code>production</code> mode. If you're not planning on developing on Snipe-IT, please update your <code>APP_ENV</code> settings in your  <code>.env</code> file to <code>production</code>.
+          Your app is set <code>{{ $start_settings['env'] }}</code> instead of <code>production</code> mode. If you're not planning on developing on {{ config('app.name') }}, please update your <code>APP_ENV</code> settings in your  <code>.env</code> file to <code>production</code>.
         @endif
       </td>
     </tr>

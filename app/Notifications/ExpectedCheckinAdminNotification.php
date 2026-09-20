@@ -48,7 +48,7 @@ class ExpectedCheckinAdminNotification extends Notification implements ShouldQue
             ->subject('⏰'.trans('mail.Expected_Checkin_Report'))
             ->withSymfonyMessage(function (Email $message) {
                 $message->getHeaders()->addTextHeader(
-                    'X-System-Sender', 'Snipe-IT'
+                    'X-System-Sender', config('app.name')
                 );
             });
 

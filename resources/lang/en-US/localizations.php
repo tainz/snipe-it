@@ -6,6 +6,7 @@ return [
     'languages' => [
         'en-US' => 'English, US',
         'en-GB' => 'English, UK',
+        'en-NZ' => 'English, New Zealand',
         'am-ET' => 'Amharic',
         'af-ZA' => 'Afrikaans',
         'ar-SA' => 'Arabic',

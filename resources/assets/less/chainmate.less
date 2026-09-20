@@ -1,0 +1,630 @@
+// ============================================================================
+// ChainMate theme
+//
+// Loaded LAST into all.css (see webpack.mix.js) so it wins over AdminLTE,
+// app.less and overrides.less without needing to edit those upstream files.
+// Keep every ChainMate visual change in this file so upstream merges stay
+// conflict-free.
+//
+// Design tokens mirror the ChainMate mobile app (ChainMate-App-Design):
+//   brand orange  #FF5F00   (header, primary actions, active states)
+//   deep orange   #E65600   (hover / pressed)
+//   charcoal      #1F2937   (text, sidebar, "quarantined")
+//   app grey      #F5F6F8 / #E8EAEE (page background, icon wells)
+//   status        green #16A34A, amber #F97316, red #DC2626
+//   cards         white, 12px radius, 0 3px 12px rgb(0 0 0 / .15)
+//
+// The brand orange itself comes from Settings > Branding > header_color
+// (--main-theme-color, set inline by partials/theme-mode-tenant-vars), so an
+// admin can still retune it without a rebuild.
+// ============================================================================
+
+@cm-orange: #FF5F00;
+@cm-orange-dark: #E65600;
+@cm-charcoal: #1F2937;
+@cm-charcoal-deep: #111827;
+@cm-grey-bg: #F5F6F8;
+@cm-grey-well: #E8EAEE;
+@cm-green: #16A34A;
+@cm-amber: #F97316;
+@cm-red: #DC2626;
+@cm-blue: #2563EB;
+@cm-radius: 12px;
+@cm-radius-sm: 8px;
+@cm-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+// ---------------------------------------------------------------------------
+// Tokens
+// ---------------------------------------------------------------------------
+
+:root {
+  --cm-orange: @cm-orange;
+  --cm-charcoal: @cm-charcoal;
+  --cm-green: @cm-green;
+  --cm-amber: @cm-amber;
+  --cm-red: @cm-red;
+  --cm-radius: @cm-radius;
+  --cm-radius-sm: @cm-radius-sm;
+  --cm-card-shadow: 0 3px 12px rgb(0 0 0 / 0.08);
+  --cm-card-shadow-hover: 0 6px 18px rgb(0 0 0 / 0.14);
+  --cm-label-color: ~"light-dark(#6B7280, #9CA3AF)";
+  --cm-well: ~"light-dark(#E8EAEE, #374151)";
+
+  --color-bg: ~"light-dark(#F5F6F8, #0B1220)";
+  --color-fg: ~"light-dark(#1F2937, #F3F4F6)";
+  --main-footer-bg-color: ~"light-dark(#FFFFFF, #111827)";
+  --main-footer-text-color: ~"light-dark(#6B7280, #9CA3AF)";
+  --main-footer-top-border-color: ~"light-dark(#E5E7EB, #1F2937)";
+  --sidenav-hover-color-bg: @cm-charcoal-deep;
+  --sidenav-text-hover-color: #FFFFFF;
+  --sidenav-text-nohover-color: #D1D5DB;
+  --table-border-row-color: ~"light-dark(#EEF0F3, #1F2937)";
+  --table-stripe-bg: ~"light-dark(#FFFFFF, #111827)";
+  --table-stripe-bg-alt: ~"light-dark(#F9FAFB, #172033)";
+  --input-border-color: ~"light-dark(#D1D5DB, #374151)";
+  --text-success: ~"light-dark(#15803D, #4ADE80)";
+  --text-warning: ~"light-dark(#C2410C, #FB923C)";
+  --text-danger: ~"light-dark(#B91C1C, #F87171)";
+  --text-help: ~"light-dark(#6B7280, #9CA3AF)";
+  --search-highlight: #FED7AA;
+}
+
+// The setup wizard's layout never sets data-theme, so light-dark() there
+// resolves against the OS preference while AdminLTE paints a fixed light
+// background - dark-mode users get near-white text on it. Pin those pages
+// to the light scheme; every themed page sets data-theme explicitly.
+html:not([data-theme]) {
+  color-scheme: light;
+}
+
+[data-theme="light"] {
+  --box-bg: #FFFFFF;
+  --box-header-bottom-border-color: #EEF0F3;
+  --box-header-top-border-color: #E5E7EB;
+  --header-color: @cm-charcoal;
+  --callout-bg-color: #FFF7ED;
+  --callout-left-border: @cm-orange;
+}
+
+[data-theme="dark"] {
+  --box-bg: @cm-charcoal-deep;
+  --box-header-bottom-border-color: @cm-charcoal;
+  --box-header-top-border-color: #374151;
+  --header-color: #F9FAFB;
+  --callout-bg-color: @cm-charcoal;
+  --callout-left-border: @cm-orange;
+  --cm-card-shadow: 0 3px 12px rgb(0 0 0 / 0.4);
+  --cm-card-shadow-hover: 0 6px 18px rgb(0 0 0 / 0.55);
+}
+
+// ---------------------------------------------------------------------------
+// Base typography
+// ---------------------------------------------------------------------------
+
+body,
+.main-header .logo,
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.tooltip,
+.popover {
+  font-family: @cm-font;
+}
+
+body {
+  color: var(--color-fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.content-header > h1 {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+// ---------------------------------------------------------------------------
+// Top navbar - flat brand-orange bar, like the app header
+// ---------------------------------------------------------------------------
+
+.main-header .navbar,
+.main-header .logo {
+  background: var(--main-theme-color) !important;
+  border: 0;
+}
+
+.main-header {
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.18);
+}
+
+.main-header .navbar-brand,
+.main-header .logo.navbar-brand {
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+img.navbar-brand-img,
+.navbar-brand > img {
+  height: 50px;
+  width: auto;
+  padding: 8px 6px 8px 0;
+}
+
+.main-header .navbar .nav > li > a:hover,
+.main-header .navbar .nav > li > a:focus,
+.main-header .navbar .nav > .open > a,
+.main-header .navbar .sidebar-toggle:hover {
+  background-color: rgb(0 0 0 / 0.12);
+}
+
+// Tag-lookup search box in the header reads as a white pill, like the app.
+.main-header .navbar-form .form-control,
+.main-header .navbar-form input[type="text"] {
+  border: 0;
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: @cm-charcoal;
+  padding-left: 14px;
+}
+
+.main-header .navbar-form .btn {
+  border-radius: 999px;
+}
+
+// ---------------------------------------------------------------------------
+// Sidebar - charcoal, like the app's bottom nav
+// ---------------------------------------------------------------------------
+
+.main-sidebar,
+.left-side,
+.sidebar-menu > li > .treeview-menu {
+  background-color: @cm-charcoal !important;
+}
+
+.sidebar-menu > li > .treeview-menu {
+  background-color: @cm-charcoal-deep !important;
+}
+
+.sidebar-menu > li:hover,
+.sidebar-menu > li.active > a,
+.sidebar-menu > li:hover > a {
+  background-color: @cm-charcoal-deep !important;
+}
+
+.sidebar-menu > li.active > a,
+.sidebar-menu > li:hover > a {
+  border-left-width: 4px;
+  border-left-color: var(--main-theme-color) !important;
+}
+
+.sidebar-menu > li > a {
+  font-weight: 600;
+}
+
+.sidebar-menu > li.active > a > i,
+.sidebar-menu > li.active > a > .fa,
+.sidebar-menu > li.active > a > svg,
+.sidebar-menu .treeview-menu > li.active > a {
+  color: var(--main-theme-color) !important;
+}
+
+.sidebar-menu > li.header {
+  color: #9CA3AF;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+// ---------------------------------------------------------------------------
+// Cards (.box, panels, tabs)
+// ---------------------------------------------------------------------------
+
+.box,
+.box.box-default,
+.box.box-theme,
+.panel,
+.nav-tabs-custom,
+.info-box {
+  border-top: 0 !important;
+  border-radius: @cm-radius;
+  box-shadow: var(--cm-card-shadow);
+}
+
+.box > .box-header:first-child,
+.nav-tabs-custom > .nav-tabs {
+  border-top-left-radius: @cm-radius;
+  border-top-right-radius: @cm-radius;
+}
+
+.box > .box-footer:last-child {
+  border-bottom-left-radius: @cm-radius;
+  border-bottom-right-radius: @cm-radius;
+}
+
+.box-header > .box-title,
+.box-header .box-title,
+.panel-heading .panel-title {
+  font-weight: 800;
+  font-size: 17px;
+}
+
+.box-header {
+  padding: 14px 16px;
+}
+
+.box-body {
+  padding: 16px;
+}
+
+// Tabs: underline style with a 3px orange bar on the active tab.
+.nav-tabs-custom > .nav-tabs > li {
+  border-top: 0 !important;
+  margin-bottom: -1px;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a {
+  font-weight: 600;
+  color: var(--cm-label-color);
+  border-bottom: 3px solid transparent !important;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active > a,
+.nav-tabs-custom > .nav-tabs > li.active > a:link,
+.nav-tabs-custom > .nav-tabs > li.active > a:visited,
+.nav-tabs-custom > .nav-tabs > li.active > a:hover {
+  color: var(--color-fg) !important;
+  border-bottom: 3px solid var(--main-theme-color) !important;
+}
+
+// Callouts / alerts get the app's left-accent treatment.
+.callout,
+.alert {
+  border-radius: @cm-radius-sm;
+  border-width: 0 0 0 4px !important;
+  border-style: solid;
+}
+
+.alert-success { background-color: @cm-green !important; border-color: darken(@cm-green, 8%) !important; }
+.alert-warning { background-color: @cm-amber !important; border-color: darken(@cm-amber, 10%) !important; }
+.alert-danger,
+.alert-error   { background-color: @cm-red !important;   border-color: darken(@cm-red, 10%) !important; }
+
+// ---------------------------------------------------------------------------
+// Dashboard tiles - white cards with an orange icon well (app FilterTile)
+// ---------------------------------------------------------------------------
+
+.dashboard.small-box {
+  background: var(--box-bg) !important;
+  color: var(--color-fg) !important;
+  border-radius: @cm-radius;
+  box-shadow: var(--cm-card-shadow);
+  overflow: hidden;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+
+  .inner {
+    color: var(--color-fg);
+    padding: 16px 16px 12px;
+
+    h3 {
+      font-weight: 900;
+      font-size: 34px;
+      letter-spacing: -0.03em;
+      color: var(--color-fg) !important;
+    }
+
+    p {
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--cm-label-color) !important;
+    }
+  }
+
+  .icon {
+    top: 14px;
+    right: 14px;
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    background: var(--cm-well);
+    color: var(--main-theme-color);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > i,
+    > svg,
+    > .fa,
+    > .fas {
+      position: static;
+      font-size: 22px;
+      color: var(--main-theme-color);
+    }
+  }
+
+  &:hover {
+    box-shadow: var(--cm-card-shadow-hover);
+    transform: translateY(-1px);
+
+    .icon {
+      font-size: 24px;
+    }
+  }
+
+  // AdminLTE hides tile icons on phones; keep that so they don't cover the count.
+  @media (max-width: 767px) {
+    .icon {
+      display: none;
+    }
+  }
+
+  .small-box-footer {
+    background: transparent !important;
+    color: var(--main-theme-color) !important;
+    border-top: 1px solid var(--box-header-bottom-border-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 11px;
+    padding: 8px 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Buttons
+// ---------------------------------------------------------------------------
+
+.btn {
+  border-radius: @cm-radius-sm;
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.btn-sm,
+.btn-xs {
+  border-radius: 6px;
+}
+
+.btn-primary,
+.btn-theme {
+  background-color: var(--main-theme-color) !important;
+  border-color: var(--main-theme-color) !important;
+  color: #FFFFFF !important;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    background-color: ~"hsl(from var(--main-theme-color) h s calc(l - 8))" !important;
+    border-color: ~"hsl(from var(--main-theme-color) h s calc(l - 8))" !important;
+  }
+}
+
+.btn-primary.btn-outline {
+  background-color: transparent !important;
+  color: var(--main-theme-color) !important;
+
+  &:hover {
+    background-color: var(--main-theme-color) !important;
+    color: #FFFFFF !important;
+  }
+}
+
+.btn-success { background-color: @cm-green !important; border-color: @cm-green !important; }
+.btn-warning { background-color: @cm-amber !important; border-color: @cm-amber !important; }
+.btn-danger  { background-color: @cm-red !important;   border-color: @cm-red !important; }
+
+.btn-default {
+  border-radius: @cm-radius-sm;
+}
+
+// ---------------------------------------------------------------------------
+// Forms
+// ---------------------------------------------------------------------------
+
+.form-control,
+.input-group .form-control,
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple,
+.select2-selection .select2-selection--single {
+  border-radius: @cm-radius-sm !important;
+  border-color: var(--input-border-color);
+  min-height: 36px;
+}
+
+.input-group > .form-control:not(:last-child),
+.input-group > .select2-container:not(:last-child) .select2-selection {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.input-group > .form-control:not(:first-child),
+.input-group > .input-group-addon:last-child,
+.input-group > .input-group-btn:last-child > .btn {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.input-group > .input-group-addon:first-child,
+.input-group > .input-group-btn:first-child > .btn {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.input-group-addon:last-child,
+.input-group-btn:last-child > .btn {
+  border-top-right-radius: @cm-radius-sm !important;
+  border-bottom-right-radius: @cm-radius-sm !important;
+}
+
+.input-group-addon:first-child,
+.input-group-btn:first-child > .btn {
+  border-top-left-radius: @cm-radius-sm !important;
+  border-bottom-left-radius: @cm-radius-sm !important;
+}
+
+.form-control:focus,
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default.select2-container--open .select2-selection--single {
+  border-color: var(--main-theme-color) !important;
+  box-shadow: 0 0 0 3px ~"hsl(from var(--main-theme-color) h s l / 0.18)";
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected],
+.select2-container--default .select2-results__option--highlighted[data-selected] {
+  background-color: var(--main-theme-color);
+}
+
+.control-label,
+.form-horizontal .control-label {
+  font-weight: 700;
+}
+
+// ---------------------------------------------------------------------------
+// Tables
+// ---------------------------------------------------------------------------
+
+.table > thead > tr > th,
+.bootstrap-table .table > thead > tr > th .th-inner {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cm-label-color);
+}
+
+.table > thead > tr > th {
+  border-bottom-width: 1px !important;
+}
+
+.bootstrap-table .fixed-table-container {
+  border-radius: @cm-radius-sm;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+  background-color: var(--box-bg) !important;
+  border: 1px solid var(--input-border-color) !important;
+  color: var(--color-fg) !important;
+  border-radius: 6px !important;
+  margin: 0 2px;
+  font-weight: 600;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus {
+  background-color: var(--main-theme-color) !important;
+  border-color: var(--main-theme-color) !important;
+  color: #FFFFFF !important;
+}
+
+// ---------------------------------------------------------------------------
+// Status pills - match the app's In date / Due soon / Overdue / Quarantined
+// ---------------------------------------------------------------------------
+
+.label,
+.badge {
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.3em 0.75em;
+}
+
+.label-success, .bg-green, .callout.callout-success { background-color: @cm-green !important; }
+.label-warning, .bg-yellow                         { background-color: @cm-amber !important; }
+.label-danger,  .bg-red                            { background-color: @cm-red !important; }
+.label-primary, .bg-light-blue                     { background-color: var(--main-theme-color) !important; }
+.label-info,    .bg-aqua                           { background-color: @cm-blue !important; }
+.label-default                                     { background-color: var(--cm-well) !important; color: var(--color-fg) !important; }
+
+.text-success { color: var(--text-success) !important; }
+.text-warning { color: var(--text-warning) !important; }
+.text-danger  { color: var(--text-danger) !important; }
+
+// ---------------------------------------------------------------------------
+// Footer
+// ---------------------------------------------------------------------------
+
+.main-footer {
+  font-size: 12px;
+  border-top: 1px solid var(--main-footer-top-border-color);
+}
+
+// ---------------------------------------------------------------------------
+// Login, password reset and error pages (layouts/basic.blade.php)
+// ---------------------------------------------------------------------------
+
+.login-page,
+.register-page {
+  background:
+    radial-gradient(1200px 400px at 50% -120px, ~"hsl(from var(--main-theme-color) h s l / 0.14)", transparent 70%),
+    var(--color-bg);
+}
+
+.basic-page-header {
+  min-height: 64px;
+  margin-bottom: 48px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.18);
+}
+
+.basic-page-header__site-name {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.basic-page-header__link img,
+#login-logo {
+  max-height: 56px;
+  max-width: min(280px, 100%);
+}
+
+.login-box,
+.register-box {
+  border-top: 0;
+  border-radius: @cm-radius;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.12);
+
+  .box-header {
+    background: var(--box-bg);
+    border-top: 4px solid var(--main-theme-color);
+    padding: 18px 20px 6px;
+
+    .box-title,
+    h1, h2, h3 {
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  .login-box-body,
+  .box-body {
+    padding: 20px;
+  }
+
+  .form-control {
+    min-height: 44px;
+    font-size: 15px;
+  }
+
+  .btn-primary,
+  .btn-block {
+    min-height: 44px;
+    font-size: 15px;
+  }
+}

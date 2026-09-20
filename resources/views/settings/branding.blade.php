@@ -30,7 +30,7 @@
                                 :value="old('site_name', $setting->site_name)"
                                 :required="! config('app.lock_passwords')"
                                 :maxlength="191"
-                                placeholder="Snipe-IT Asset Management"
+                                placeholder="{{ config('app.name') }}"
                                 :disabled="config('app.lock_passwords')"
                             />
                         </x-slot:input>
